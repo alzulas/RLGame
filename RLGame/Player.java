@@ -33,6 +33,7 @@ public class Player extends GameObject {
 		y = Game.clamp(y, 86, 220);
 		
 		
+		
 		collision();
 
 	}
@@ -45,6 +46,12 @@ public class Player extends GameObject {
 				if(getBounds().intersects(tempObject.getBounds())){
 					//collision code
 					HUD.HEALTH -= 2;
+				}
+			}
+			if(tempObject.getID() == ID.Goal){
+				if(getBounds().intersects(tempObject.getBounds())){
+					//collision code
+					HUD.HEALTH += 2;
 				}
 			}
 		}

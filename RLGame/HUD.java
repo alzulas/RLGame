@@ -5,11 +5,11 @@ import java.awt.Graphics;
 
 public class HUD {
 
-	public static int HEALTH = 100;
+	public static float HEALTH = 100;
 	
 	public void tick(){
 		
-		HEALTH = Game.clamp(HEALTH,  0, 100);
+		HEALTH = hclamp(HEALTH,  0, 100);
 	}
 	public void render(Graphics g){
 		g.setColor(Color.GRAY);
@@ -19,4 +19,14 @@ public class HUD {
 		g.setColor(Color.white);
 		g.drawRect(15, 15, 200, 32);
 	}
+	
+	public static float hclamp(float var, float min, float max){
+		if(var >= max)
+			return var = max;
+		else if(var <= min)
+			return var = min;
+		else
+			return var;
+	}
 }
+

@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 public class KeyInput extends KeyAdapter{
 	
 	private Handler handler;
+	private HUD hud;
 	
 	public KeyInput(Handler handler){
 		this.handler = handler;
@@ -20,10 +21,22 @@ public class KeyInput extends KeyAdapter{
 			if(tempObject.getID() == ID.Player){
 				//all the key events for player 1
 				
-				if(key == KeyEvent.VK_UP) tempObject.setY(tempObject.getY() - 67);
-				if(key == KeyEvent.VK_RIGHT) tempObject.setX(tempObject.getX() + 140);
-				if(key == KeyEvent.VK_LEFT) tempObject.setX(tempObject.getX() - 140);
-				if(key == KeyEvent.VK_DOWN) tempObject.setY(tempObject.getY() + 67);
+				if(key == KeyEvent.VK_UP){ 
+					tempObject.setY(tempObject.getY() - 67);
+					HUD.HEALTH -= .04;
+				}
+				if(key == KeyEvent.VK_RIGHT) {
+					tempObject.setX(tempObject.getX() + 140);
+					HUD.HEALTH -= .04;
+				}
+				if(key == KeyEvent.VK_LEFT) {
+					tempObject.setX(tempObject.getX() - 140);
+					HUD.HEALTH -= .04;
+				}
+				if(key == KeyEvent.VK_DOWN){ 
+					tempObject.setY(tempObject.getY() + 67);
+					HUD.HEALTH -= .04;
+				}
 				
 			}
  		}
