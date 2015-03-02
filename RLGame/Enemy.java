@@ -2,6 +2,7 @@ package RLGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class Enemy extends GameObject{
 
@@ -22,6 +23,10 @@ public class Enemy extends GameObject{
 		g.drawRect(x, y, 142, 66);
 		
 		
+	}
+
+	public Rectangle getBounds() {
+		return new Rectangle(x, y, 142, 66);
 	}
 
 }

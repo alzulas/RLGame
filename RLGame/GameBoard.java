@@ -2,6 +2,7 @@ package RLGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class GameBoard extends GameObject {
 
@@ -13,6 +14,8 @@ public class GameBoard extends GameObject {
 		
 		
 	}
+	
+	
 	public void render(Graphics g) {
 		g.setColor(Color.cyan);
 		g.drawRect(x, y, 568, 198);
@@ -30,6 +33,11 @@ public class GameBoard extends GameObject {
 		g.drawString("You Win!", 490, 110);
 		g.drawString("You Lose!", 490, 170);
 		
+	}
+	
+	public Rectangle getBounds() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

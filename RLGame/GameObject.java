@@ -1,6 +1,7 @@
 package RLGame;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public abstract class GameObject { //boring class. Lots of setters and getters mostly
 	
@@ -16,6 +17,7 @@ public abstract class GameObject { //boring class. Lots of setters and getters m
 	
 	public abstract void tick();
 	public abstract void render(Graphics g);
+	public abstract Rectangle getBounds();
 	
 	public void setX(int x){
 		this.x = x;
