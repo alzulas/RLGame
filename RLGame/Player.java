@@ -20,6 +20,11 @@ public class Player extends GameObject {
 		x += velX;
 		y += velY;
 		
+		
+		x = Game.clamp(x, 80, 500);
+		y = Game.clamp(y, 86, 220);
+		
+
 	}
 
 
@@ -28,5 +33,6 @@ public class Player extends GameObject {
 		g.fillRect(x, y, 32, 32);
 		
 	}
+	
 
 }

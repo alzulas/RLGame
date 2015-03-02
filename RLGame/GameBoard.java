@@ -10,7 +10,7 @@ public class GameBoard extends GameObject {
 		
 	}
 	public void tick() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	public void render(Graphics g) {

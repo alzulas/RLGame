@@ -19,6 +19,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private Random r;
 	private Handler handler;
+	private HUD hud;
 	
 	
 	public Game(){
@@ -27,10 +28,13 @@ public class Game extends Canvas implements Runnable{
 		
 		new Window(WIDTH, HEIGHT, "Reinforcement Learning Game!", this);
 		
+		hud = new HUD();
+		
 		r = new Random();
 		
 		handler.addObject(new GameBoard(30, 70, ID.GameBoard));
 		handler.addObject(new Player(80, 220, ID.Player));
+		handler.addObject(new Enemy(456, 136, ID.Enemy));
 		
 	}
 	public synchronized void start(){
@@ -49,6 +53,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public void run(){ //popular game loop
+		this.requestFocus();
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double ns = 1000000000/amountOfTicks;
@@ -78,6 +83,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private void tick(){
 		handler.tick();
+		hud.tick();
 	}
 	private void render(){ 
 		BufferStrategy bs = this.getBufferStrategy();
@@ -93,9 +99,20 @@ public class Game extends Canvas implements Runnable{
 		
 		handler.render(g);
 		
+		hud.render(g);
+		
 		g.dispose();
 		bs.show();
 		
+	}
+	
+	public static int clamp(int var, int min, int max){
+		if(var >= max)
+			return var = max;
+		else if(var <= min)
+			return var = min;
+		else
+			return var;
 	}
 	
 	public static void main(String args[]){
