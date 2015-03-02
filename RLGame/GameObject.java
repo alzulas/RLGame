@@ -35,7 +35,7 @@ public abstract class GameObject { //boring class. Lots of setters and getters m
 	public int getX(){
 		return x;
 	}
-	public int gety(){
+	public int getY(){
 		return y;
 	}
 	public ID getID(){
