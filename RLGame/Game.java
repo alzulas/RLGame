@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 
 
@@ -16,9 +17,21 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread; //make a thread
 	private boolean running = false;
 	
+	private Random r;
+	private Handler handler;
+	
 	
 	public Game(){
 		new Window(WIDTH, HEIGHT, "Reinforcement Learning Game!", this);
+		
+		handler = new Handler();
+		r = new Random();
+		
+		for(int i = 0; i < 50; i++){
+			handler.addObject(new Player(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.Player));
+
+		}
+		
 	}
 	public synchronized void start(){
 		thread = new Thread(this);
@@ -64,9 +77,9 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	private void tick(){
-		
+		handler.tick();
 	}
-	private void render(){
+	private void render(){ 
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null){
 			this.createBufferStrategy(3); //creates 3 buffers
@@ -77,6 +90,8 @@ public class Game extends Canvas implements Runnable{
 		
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		handler.render(g);
 		
 		g.dispose();
 		bs.show();
