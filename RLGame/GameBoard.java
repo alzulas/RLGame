@@ -9,14 +9,10 @@ public class GameBoard extends GameObject {
 		super(x, y, id);		
 		
 	}
-
-
 	public void tick() {
 		// TODO Auto-generated method stub
 		
 	}
-
-
 	public void render(Graphics g) {
 		g.setColor(Color.cyan);
 		g.drawRect(x, y, 568, 198);

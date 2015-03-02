@@ -22,9 +22,9 @@ public class Game extends Canvas implements Runnable{
 	
 	
 	public Game(){
-		new Window(WIDTH, HEIGHT, "Reinforcement Learning Game!", this);
-		
 		handler = new Handler();
+		
+		new Window(WIDTH, HEIGHT, "Reinforcement Learning Game!", this);
 		
 		r = new Random();
 		
