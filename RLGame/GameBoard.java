@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+
 public class GameBoard extends GameObject {
 
 	public GameBoard(int x, int y, ID id) {

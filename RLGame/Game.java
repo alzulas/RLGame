@@ -1,10 +1,15 @@
 package RLGame;
 
+import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.util.Random;
+
+import javax.swing.JFrame;
 
 
 
@@ -29,7 +34,6 @@ public class Game extends Canvas implements Runnable{
 		new Window(WIDTH, HEIGHT, "Reinforcement Learning Game!", this);
 		
 		hud = new HUD();
-		
 		r = new Random();
 		
 		handler.addObject(new GameBoard(30, 70, ID.GameBoard));
@@ -85,6 +89,8 @@ public class Game extends Canvas implements Runnable{
 	private void tick(){
 		handler.tick();
 		hud.tick();
+
+		
 	}
 	private void render(){ 
 		BufferStrategy bs = this.getBufferStrategy();
@@ -101,6 +107,7 @@ public class Game extends Canvas implements Runnable{
 		handler.render(g);
 		
 		hud.render(g);
+		
 		
 		g.dispose();
 		bs.show();
