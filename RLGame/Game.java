@@ -1,15 +1,12 @@
 package RLGame;
 
-import java.awt.BorderLayout;
+
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.util.Random;
 
-import javax.swing.JFrame;
 
 
 
@@ -37,9 +34,11 @@ public class Game extends Canvas implements Runnable{
 		r = new Random();
 		
 		handler.addObject(new GameBoard(30, 70, ID.GameBoard));
-		handler.addObject(new Player(80, 220, ID.Player, handler));
+		//handler.addObject(new Player(80, 220, ID.Player, handler));
+		handler.addObject(new BasicRL(80, 220, ID.BasicRL, handler));		
 		handler.addObject(new Enemy(456, 136, ID.Enemy));
 		handler.addObject(new Goal(456, 70, ID.Goal));
+		handler.addObject(new Block(172, 136, ID.Block));
 		
 	}
 	public synchronized void start(){
@@ -60,7 +59,7 @@ public class Game extends Canvas implements Runnable{
 	public void run(){ //popular game loop
 		this.requestFocus();
 		long lastTime = System.nanoTime();
-		double amountOfTicks = 60.0;
+		double amountOfTicks = 1.0;
 		double ns = 1000000000/amountOfTicks;
 		double delta = 0;
 		long timer = System.currentTimeMillis();

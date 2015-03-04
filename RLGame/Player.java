@@ -67,6 +67,12 @@ public class Player extends GameObject {
 		x = Game.clamp(x, 80, 500);
 		y = Game.clamp(y, 86, 220);
 		
+		if (HUD.HEALTH == 0 || HUD.HEALTH == 100)
+		{
+			x = 80;
+			y = 220;
+			HUD.HEALTH = 50;
+		}
 		
 		collision();
 
@@ -86,6 +92,12 @@ public class Player extends GameObject {
 				if(getBounds().intersects(tempObject.getBounds())){
 					//collision code
 					HUD.HEALTH += 2;
+				}
+			}
+			if(tempObject.getID() == ID.Block){
+				if(getBounds().intersects(tempObject.getBounds())){
+					x = 80;
+					y = 153;
 				}
 			}
 		}

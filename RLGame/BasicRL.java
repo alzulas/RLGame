@@ -3,19 +3,17 @@ package RLGame;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
+import java.util.Random;
+
+import javax.swing.border.MatteBorder;
 
 public class BasicRL extends GameObject{
 
 	Handler handler;
 	
-	public BasicRL(int x, int y, ID id) {
+	public BasicRL(int x, int y, ID id, Handler handler) {
 		super(x, y, id);
-		// V(s) <- V(s)+alpha[V(s')-V(s)] 
-		//value of a state + step size (value of the next state - value of the state)
-		// alpha = .4 for stupid learner
-		
-		
-		this.handler = handler;
 		
 		
 	}
@@ -60,14 +58,53 @@ public int location(){
 	
 	public void tick() {
 		
+		
 		x = Game.clamp(x, 80, 500);
 		y = Game.clamp(y, 86, 220);
 		
+		if (HUD.HEALTH == 0 || HUD.HEALTH == 100)
+		{
+			x = 80;
+			y = 220;
+			HUD.HEALTH = 50;
+		}
 		
-		collision();
+		
+		// V(s) <- V(s)+alpha[V(s')-V(s)] 
+		//value of a state + step size (value of the next state - value of the state)
+		// alpha = .4 for stupid learner
+		//while(true){
+		
+			
+		Random rand = new Random();
+        int num = Math.abs(rand.nextInt(4));
+        
+        if (num == 0){
+        	y = y-67; //up
+			HUD.HEALTH -= .04;
+        }
+        else if (num == 1){
+        	x = x+140; //right
+        	HUD.HEALTH -= .04;
+		}
+        else if (num == 2){
+        	x = x - 140; //left
+			HUD.HEALTH -= .04;
+        }
+        else if (num == 3){
+        	y = y + 67; //down
+        	HUD.HEALTH -= .04;
+        }
+        else{
+        	x = 80;
+        	y = 220;
+        }
+        
+      //  collision();
+		
 		
 	}
-	
+
 	private void collision(){
 		for (int i = 0; i < handler.object.size(); i++){
 			GameObject tempObject = handler.object.get(i);
@@ -82,6 +119,12 @@ public int location(){
 				if(getBounds().intersects(tempObject.getBounds())){
 					//collision code
 					HUD.HEALTH += 2;
+				}
+			}
+			if(tempObject.getID() == ID.Block){
+				if(getBounds().intersects(tempObject.getBounds())){
+					x = 80;
+					y = 153;
 				}
 			}
 		}

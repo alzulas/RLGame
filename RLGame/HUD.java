@@ -6,15 +6,15 @@ import java.awt.Graphics;
 
 public class HUD {
 
-	public static float HEALTH = 100;
+	public static float HEALTH = 50;
 	
 	private int trial = 1;
 	
 	public void tick(){
 		
-		HEALTH = hclamp(HEALTH,  0, 500);
+		HEALTH = hclamp(HEALTH,  0, 100);
 		
-		if (HEALTH == 0 || HEALTH == 500)
+		if (HEALTH == 0 || HEALTH == 100)
 		{
 			trial++;
 		}

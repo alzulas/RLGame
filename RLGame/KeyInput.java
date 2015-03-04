@@ -7,9 +7,14 @@ public class KeyInput extends KeyAdapter{
 	
 	private Handler handler;
 	private HUD hud;
+	public static int key;
 	
 	public KeyInput(Handler handler){
 		this.handler = handler;
+	}
+	
+	public void setkey(int key){
+		this.key = key;
 	}
 	
 	public void keyPressed(KeyEvent e){
