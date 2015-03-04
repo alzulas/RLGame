@@ -35,7 +35,10 @@ public class Game extends Canvas implements Runnable{
 		
 		handler.addObject(new GameBoard(30, 70, ID.GameBoard));
 		//handler.addObject(new Player(80, 220, ID.Player, handler));
-		handler.addObject(new BasicRL(80, 220, ID.BasicRL, handler));		
+		handler.addObject(new BasicRL(80, 220, ID.BasicRL, handler));
+		//handler.addObject(new DynamicProgramming(80, 220, ID.DynamicProgramming));
+		//handler.addObject(new MonteCarlo(80, 220, ID.MonteCarlo));
+		//handler.addObject(new TemporalDifference(80, 220, ID.TemporalDifference));
 		handler.addObject(new Enemy(456, 136, ID.Enemy));
 		handler.addObject(new Goal(456, 70, ID.Goal));
 		handler.addObject(new Block(172, 136, ID.Block));
