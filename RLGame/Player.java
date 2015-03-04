@@ -22,16 +22,50 @@ public class Player extends GameObject {
 	public Rectangle getBounds(){
 		return new Rectangle(x, y, 32, 32);
 	}
-
+	
+	public int location(){
+		
+		if (x == 80 && y == 220){
+			return 1;
+		}
+		else if (x == 80 && y == 153){
+			return 2;
+		}
+		else if (x == 80 && y == 86){
+			return 3;
+		}
+		else if (x == 220 && y == 220){
+			return 4;
+		}
+		else if (x == 220 && y == 86){
+			return 5;
+		}
+		else if (x == 360 && y == 220){
+			return 6;
+		}
+		else if (x == 360 && y == 153){
+			return 7;
+		}
+		else if (x == 360 && y == 86){
+			return 8;
+		}
+		else if (x == 500 && y == 220){
+			return 9;
+		}
+		else if (x == 500 && y == 153){
+			return 10;
+		}
+		else if (x == 500 && y == 86){
+			return 11;
+		}
+		return 0;
+	}
 
 	public void tick() {
-		x += velX;
-		y += velY;
-		
-		
+		//x += velX;
+		//y += velY;
 		x = Game.clamp(x, 80, 500);
 		y = Game.clamp(y, 86, 220);
-		
 		
 		
 		collision();
