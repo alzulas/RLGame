@@ -62,7 +62,7 @@ public class Game extends Canvas implements Runnable{
 	public void run(){ //popular game loop
 		this.requestFocus();
 		long lastTime = System.nanoTime();
-		double amountOfTicks = 1.0;
+		double amountOfTicks = 5.0;
 		double ns = 1000000000/amountOfTicks;
 		double delta = 0;
 		long timer = System.currentTimeMillis();

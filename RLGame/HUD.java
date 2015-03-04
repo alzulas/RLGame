@@ -8,13 +8,13 @@ public class HUD {
 
 	public static float HEALTH = 2;
 	
-	private int trial = 1;
+	public static int trial = 1;
 	
 	public void tick(){
 		
-		HEALTH = hclamp(HEALTH,  0, 4);
+		HEALTH = hclamp(HEALTH,  -2, 2);
 		
-		if (HEALTH == 0 || HEALTH == 4)
+		if (HEALTH == -2 || HEALTH == 2)
 		{
 			trial++;
 		}
