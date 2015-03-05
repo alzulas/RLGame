@@ -199,13 +199,14 @@ public int location(){
         }
         if (loc == 10){
         	HUD.HEALTH = 2;
-        	reward = -2;
+        	reward = 2;
         }
 		
-        direction[pastState].U = pastValue + .04 * (reward - pastValue);
+        direction[pastState].U = direction[pastState].U + .04 * (reward - direction[pastState].U);
 
-        if(pastValue == 2 || pastValue == -2)
+        if(reward == 2 || reward == -2)
         {
+        	direction[loc].U = reward;
         	pastState = 0;
         	pastDirection = 0;
         	pastValue = 0;
