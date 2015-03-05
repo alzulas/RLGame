@@ -31,8 +31,8 @@ public class GameBoard extends GameObject {
 		g.setColor(Color.red);
 		g.fillRect(456, 136, 142, 66);
 		g.setColor(Color.white);
-		g.drawString("You Win!", 500, 153);
-		g.drawString("You Lose!", 500, 86);
+		g.drawString("You Win!", 500, 86);
+		g.drawString("You Lose!", 500, 153);
 		g.drawString("1", 80, 220);
 		g.drawString("2", 80, 153);
 		g.drawString("3", 80, 86);
