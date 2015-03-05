@@ -94,18 +94,71 @@ public int location(){
 	        num = Math.abs(rand.nextInt(4));
 		}
 		else{
-			if (direction[loc].U > direction[loc].D && direction[loc].U > direction[loc].R && direction[loc].U > direction[loc].L){
-				num = 0;
+			if (loc == 0)//if loc 0
+			{
+				if(direction[1].U>direction[3].U){ //and up state > right state
+					num = 0; //go up
+				}
+				else num = 1;  //else go right
 			}
-			else if (direction[loc].R > direction[loc].U && direction[loc].R > direction[loc].D && direction[loc].R > direction[loc].L){
-				num = 1;
+			else if (loc == 1){ //if loc 1
+				if(direction[0].U>direction[2].U){ //and down state > up state
+					num = 3; //go down
+				}
+				else num = 0; //else go up
 			}
-			else if (direction[loc].L > direction[loc].U && direction[loc].L > direction[loc].R && direction[loc].L > direction[loc].D){
-				num = 2;
+			else if (loc == 2){ //if loc 2
+				if(direction[1].U>direction[4].U){ //and down state > right state
+					num = 3; //go down
+				}
+				else num = 1; //else go right
 			}
-			else if (direction[loc].D > direction[loc].U && direction[loc].D > direction[loc].R && direction[loc].D > direction[loc].L){
-				num = 3;
-			}			
+			else if (loc == 3){ //if loc 3
+				if(direction[0].U>direction[5].U){ //and left state > right state
+					num = 2; //go left
+				}
+				else num = 1; //else go right
+			}
+			else if (loc == 4){ //if loc 4
+				if(direction[2].U>direction[7].U){ //and left state > right state
+					num = 2; //go left
+				}
+				else num = 1; //else go right
+			}
+			else if (loc == 5){ //if loc 5
+				if(direction[3].U>direction[8].U && direction[3].U > direction[6].U){ //and left state > right state and up state
+					num = 2; //go left
+				}
+				if(direction[6].U>direction[8].U && direction[6].U > direction[3].U){ //and up state > right state and left state
+					num = 0; //go up
+				}
+				else num = 1; //else go right
+			}
+			else if (loc == 6){ //if loc 6
+				if(direction[5].U>direction[7].U && direction[5].U > direction[9].U){ //and down state > right state and up state
+					num = 3; //go down
+				}
+				if(direction[7].U>direction[5].U && direction[7].U > direction[9].U){ //and up state > right state and down state
+					num = 0; //go up
+				}
+				else num = 1; //else go right
+			}
+			else if (loc == 7){ //if loc 7
+				if(direction[4].U>direction[7].U && direction[4].U > direction[10].U){ //and left state > right state and down state
+					num = 2; //go left
+				}
+				if(direction[7].U>direction[4].U && direction[7].U > direction[10].U){ //and down state > right state and left state
+					num = 3; //go up
+				}
+				else num = 1; //else go right
+			}
+			else if (loc == 8){ //if loc 8
+				if(direction[5].U>direction[9].U){ //and left state > up state
+					num = 2; //go left
+				}
+				else num = 0; //else go up
+			}
+			
 		}
         double reward = 0;
 		
@@ -149,19 +202,15 @@ public int location(){
         	reward = -2;
         }
 		
-        if (pastDirection == 0){//up
-        	direction[pastState].U = pastValue + 0.4 * (reward - pastValue);
+        direction[pastState].U = pastValue + .04 * (reward - pastValue);
+
+        if(pastValue == 2 || pastValue == -2)
+        {
+        	pastState = 0;
+        	pastDirection = 0;
+        	pastValue = 0;
         }
-        else if (pastDirection ==1){ //right
-        	direction[pastState].R = pastValue + 0.4 * (reward - pastValue);
-        }
-        else if (pastDirection ==2){ //left
-        	direction[pastState].L = pastValue + 0.4 * (reward - pastValue);
-        }
-        else if(pastDirection == 3){ //down
-        	direction[pastState].D = pastValue + 0.4 * (reward - pastValue);
-        }
-        if(pastValue != 2 || pastValue != -2)
+        else
         {
         	pastState = loc;
             pastDirection = num;
@@ -193,50 +242,86 @@ public int location(){
 		printValue = df.format(direction[1].L);
 		g.drawString("L:"+ printValue, 120, 190);
 		//state 3
-		g.drawString("U:"+ direction[2].U, 40, 100);
-		g.drawString("D:"+ direction[2].D, 40, 115);
-		g.drawString("R:"+ direction[2].R, 120, 100);
-		g.drawString("L:"+ direction[2].L, 120, 115);
+		printValue = df.format(direction[2].U);
+		g.drawString("U:"+ printValue, 40, 100);
+		printValue = df.format(direction[2].D);
+		g.drawString("D:"+ printValue, 40, 115);
+		printValue = df.format(direction[2].R);
+		g.drawString("R:"+ printValue, 120, 100);
+		printValue = df.format(direction[2].L);
+		g.drawString("L:"+ printValue, 120, 115);
 		//state 4
-		g.drawString("U:"+ direction[3].U, 180, 235);
-		g.drawString("D:"+ direction[3].D, 180, 250);
-		g.drawString("R:"+ direction[3].R, 260, 235);
-		g.drawString("L:"+ direction[3].L, 260, 250);
+		printValue = df.format(direction[3].U);
+		g.drawString("U:"+ printValue, 180, 235);
+		printValue = df.format(direction[3].D);
+		g.drawString("D:"+ printValue, 180, 250);
+		printValue = df.format(direction[3].R);
+		g.drawString("R:"+ printValue, 260, 235);
+		printValue = df.format(direction[3].L);
+		g.drawString("L:"+ printValue, 260, 250);
 		//state 5
-		g.drawString("U:"+ direction[4].U, 180, 100);
-		g.drawString("D:"+ direction[4].D, 180, 115);
-		g.drawString("R:"+ direction[4].R, 260, 100);
-		g.drawString("L:"+ direction[4].L, 260, 115);
+		printValue = df.format(direction[4].U);
+		g.drawString("U:"+ printValue, 180, 100);
+		printValue = df.format(direction[4].D);
+		g.drawString("D:"+ printValue, 180, 115);
+		printValue = df.format(direction[4].R);
+		g.drawString("R:"+ printValue, 260, 100);
+		printValue = df.format(direction[4].L);
+		g.drawString("L:"+ printValue, 260, 115);
 		//state 6
-		g.drawString("U:"+ direction[5].U, 320, 235);
-		g.drawString("D:"+ direction[5].D, 320, 250);
-		g.drawString("R:"+ direction[5].R, 400, 235);
-		g.drawString("L:"+ direction[5].L, 400, 250);
+		printValue = df.format(direction[5].U);
+		g.drawString("U:"+ printValue, 320, 235);
+		printValue = df.format(direction[5].D);
+		g.drawString("D:"+ printValue, 320, 250);
+		printValue = df.format(direction[5].R);
+		g.drawString("R:"+ printValue, 400, 235);
+		printValue = df.format(direction[5].L);
+		g.drawString("L:"+ printValue, 400, 250);
 		//state 7
-		g.drawString("U:"+ direction[6].U, 320, 175);
-		g.drawString("D:"+ direction[6].D, 320, 190);
-		g.drawString("R:"+ direction[6].R, 400, 175);
-		g.drawString("L:"+ direction[6].L, 400, 190);
+		printValue = df.format(direction[6].U);
+		g.drawString("U:"+ printValue, 320, 175);
+		printValue = df.format(direction[6].D);
+		g.drawString("D:"+ printValue, 320, 190);
+		printValue = df.format(direction[6].R);
+		g.drawString("R:"+ printValue, 400, 175);
+		printValue = df.format(direction[6].L);
+		g.drawString("L:"+ printValue, 400, 190);
 		//state 8
-		g.drawString("U:"+ direction[7].U, 320, 100);
-		g.drawString("D:"+ direction[7].D, 320, 115);
-		g.drawString("R:"+ direction[7].R, 400, 100);
-		g.drawString("L:"+ direction[7].L, 400, 115);
+		printValue = df.format(direction[7].U);
+		g.drawString("U:"+ printValue, 320, 100);
+		printValue = df.format(direction[7].D);
+		g.drawString("D:"+ printValue, 320, 115);
+		printValue = df.format(direction[7].R);
+		g.drawString("R:"+ printValue, 400, 100);
+		printValue = df.format(direction[7].L);
+		g.drawString("L:"+ printValue, 400, 115);
 		//state 9
-		g.drawString("U:"+ direction[8].U, 460, 235);
-		g.drawString("D:"+ direction[8].D, 460, 250);
-		g.drawString("R:"+ direction[8].R, 540, 235);
-		g.drawString("L:"+ direction[8].L, 540, 250);
+		printValue = df.format(direction[8].U);
+		g.drawString("U:"+ printValue, 460, 235);
+		printValue = df.format(direction[8].D);
+		g.drawString("D:"+ printValue, 460, 250);
+		printValue = df.format(direction[8].R);
+		g.drawString("R:"+ printValue, 540, 235);
+		printValue = df.format(direction[8].L);
+		g.drawString("L:"+ printValue, 540, 250);
 		//state 10
-		g.drawString("U:"+ direction[9].U, 460, 175);
-		g.drawString("D:"+ direction[9].D, 460, 190);
-		g.drawString("R:"+ direction[9].R, 540, 175);
-		g.drawString("L:"+ direction[9].L, 540, 190);
+		printValue = df.format(direction[9].U);
+		g.drawString("U:"+ printValue, 460, 175);
+		printValue = df.format(direction[9].D);
+		g.drawString("D:"+ printValue, 460, 190);
+		printValue = df.format(direction[9].R);
+		g.drawString("R:"+ printValue, 540, 175);
+		printValue = df.format(direction[9].L);
+		g.drawString("L:"+ printValue, 540, 190);
 		//state 11
-		g.drawString("U:"+ direction[10].U, 460, 100);
-		g.drawString("D:"+ direction[10].D, 460, 115);
-		g.drawString("R:"+ direction[10].R, 540, 100);
-		g.drawString("L:"+ direction[10].L, 540, 115);
+		printValue = df.format(direction[10].U);
+		g.drawString("U:"+ printValue, 460, 100);
+		printValue = df.format(direction[10].D);
+		g.drawString("D:"+ printValue, 460, 115);
+		printValue = df.format(direction[10].R);
+		g.drawString("R:"+ printValue, 540, 100);
+		printValue = df.format(direction[10].L);
+		g.drawString("L:"+ printValue, 540, 115);
 	}
 
 	public Rectangle getBounds() {
