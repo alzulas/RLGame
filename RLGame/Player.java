@@ -26,37 +26,37 @@ public class Player extends GameObject {
 	public int location(){
 		
 		if (x == 80 && y == 220){
-			return 1;
+			return 0;
 		}
 		else if (x == 80 && y == 153){
-			return 2;
+			return 1;
 		}
 		else if (x == 80 && y == 86){
-			return 3;
+			return 2;
 		}
 		else if (x == 220 && y == 220){
-			return 4;
+			return 3;
 		}
 		else if (x == 220 && y == 86){
-			return 5;
+			return 4;
 		}
 		else if (x == 360 && y == 220){
-			return 6;
+			return 5;
 		}
 		else if (x == 360 && y == 153){
-			return 7;
+			return 6;
 		}
 		else if (x == 360 && y == 86){
-			return 8;
+			return 7;
 		}
 		else if (x == 500 && y == 220){
-			return 9;
+			return 8;
 		}
 		else if (x == 500 && y == 153){
-			return 10;
+			return 9;
 		}
 		else if (x == 500 && y == 86){
-			return 11;
+			return 10;
 		}
 		return 0;
 	}
@@ -67,11 +67,11 @@ public class Player extends GameObject {
 		x = Game.clamp(x, 80, 500);
 		y = Game.clamp(y, 86, 220);
 		
-		if (HUD.HEALTH == 0 || HUD.HEALTH == 100)
+		if (HUD.HEALTH == -2 || HUD.HEALTH == 2)
 		{
 			x = 80;
 			y = 220;
-			HUD.HEALTH = 50;
+			HUD.HEALTH = 0;
 		}
 		
 		collision();

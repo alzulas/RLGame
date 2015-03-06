@@ -92,32 +92,129 @@ public class DynamicProgramming extends GameObject {
 				//delta<-max(delta,|v-V(s)|)
 		//until delta < a small positive number
 		//output V =Vpi
-		//crap
+		//holy crap
 
 		int loc = location();	
 		int num = 0;
+		double reward = 0;
+		int policy = 0; // reset to 1 if you want the other policy
 		
-		if(HUD.trial < 20){		
-			Random rand = new Random();
-	        num = Math.abs(rand.nextInt(4));
-		}
-		else{
-			if (direction[loc].U > direction[loc].D && direction[loc].U > direction[loc].R && direction[loc].U > direction[loc].L){
+		if (policy == 0)
+		{
+			if (loc == 0){
 				num = 0;
 			}
-			else if (direction[loc].R > direction[loc].U && direction[loc].R > direction[loc].D && direction[loc].R > direction[loc].L){
+			else if (loc == 1){
+				num = 0;
+			}
+			else if (loc == 2){
 				num = 1;
 			}
-			else if (direction[loc].L > direction[loc].U && direction[loc].L > direction[loc].R && direction[loc].L > direction[loc].D){
+			else if (loc == 3){
 				num = 2;
 			}
-			else if (direction[loc].D > direction[loc].U && direction[loc].D > direction[loc].R && direction[loc].D > direction[loc].L){
-				num = 3;
-			}			
+			else if (loc == 4){
+				num = 1;
+			}
+			else if (loc == 5){
+				num = 2;
+			}
+			else if (loc == 6){
+				num = 0;
+			}
+			else if (loc == 7){
+				num = 1;
+			}
+			else if (loc == 8){
+				num = 2;
+			}
 		}
-        double reward = 0;
+		else if (policy == 1){
+			if (loc == 0){
+				num = 1;
+			}
+			else if (loc == 1){
+				num = 3;
+			}
+			else if (loc == 2){
+				num = 3;
+			}
+			else if (loc == 3){
+				num = 1;
+			}
+			else if (loc == 4){
+				num = 2;
+			}
+			else if (loc == 5){
+				num = 0;
+			}
+			else if (loc == 6){
+				num = 0;
+			}
+			else if (loc == 7){
+				num = 1;
+			}
+			else if (loc == 8){
+				num = 2;
+			}
+		}
+			
 		
-        
+		int chance = 0;
+		Random rand = new Random();
+	    chance = Math.abs(rand.nextInt(10));
+	    //this creates a small chance that even though you set a policy that when you select going one direction, it will go in the wrong direction.
+	    //This is based on the videos, where there's a chance that even though you picked one direction, that you will go the wrong way
+		if (num == 0){
+			if (chance == 0){
+				num = 1;
+			}
+			else if (chance == 1)
+			{
+				num = 2;
+			}
+			else{
+				num = 0;
+			}
+		}
+		else if (num == 1){
+			if (chance == 0){
+				num = 0;
+			}
+			else if (chance == 1)
+			{
+				num = 3;
+			}
+			else{
+				num = 1;
+			}
+		}
+		else if (num == 2){
+			if (chance == 0){
+				num = 0;
+			}
+			else if (chance == 1)
+			{
+				num = 3;
+			}
+			else{
+				num = 2;
+			}
+		}
+		else if (num == 3){
+			if (chance == 0){
+				num = 1;
+			}
+			else if (chance == 1)
+			{
+				num = 2;
+			}
+			else{
+				num = 3;
+			}
+		}			
+	
+        //Make a move, get a reward.
         if (num == 0){
         	if (loc == 0 || loc == 1 || loc == 5 || loc == 6 || loc == 8)
         		y = y-67; //up
@@ -154,23 +251,24 @@ public class DynamicProgramming extends GameObject {
         }
         if (loc == 10){
         	HUD.HEALTH = 2;
-        	reward = -2;
+        	reward = 2;
         }
 		
         if (pastDirection == 0){//up
-        	direction[pastState].U = pastValue + 0.4 * (reward - pastValue);
+        	direction[pastState].U = direction[pastState].U + .04 * (reward - direction[pastState].U);
         }
         else if (pastDirection ==1){ //right
-        	direction[pastState].R = pastValue + 0.4 * (reward - pastValue);
+        	direction[pastState].R = direction[pastState].R + .04 * (reward - direction[pastState].R);
         }
         else if (pastDirection ==2){ //left
-        	direction[pastState].L = pastValue + 0.4 * (reward - pastValue);
+        	direction[pastState].L = direction[pastState].R + .04 * (reward - direction[pastState].R);
         }
         else if(pastDirection == 3){ //down
-        	direction[pastState].D = pastValue + 0.4 * (reward - pastValue);
+        	direction[pastState].D = direction[pastState].R + .04 * (reward - direction[pastState].R);
         }
-        if(pastValue == 2 || pastValue == -2)
+        if(reward == 2 || reward == -2)
         {
+        	direction[loc].U = reward;
         	pastState = 0;
         	pastDirection = 0;
         	pastValue = 0;
@@ -181,6 +279,7 @@ public class DynamicProgramming extends GameObject {
             pastDirection = num;
             pastValue = reward;
         }
+        
         
 	}
 

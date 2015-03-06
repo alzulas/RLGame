@@ -32,7 +32,7 @@ public class MonteCarlo extends GameObject{
 		//repeat forever:
 			//a)generate an episode using pi
 			//b)for each state s appearing in the episode
-				//R<-return following the first occurance of s
+				//R<-return following the first occurrence of s
 				//Append R to returns(s)
 				//V(s) <-average(returns(s))
 	
