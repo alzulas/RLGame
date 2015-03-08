@@ -33,6 +33,7 @@ public class Game extends Canvas implements Runnable{
 		hud = new HUD();
 		r = new Random();
 		
+		
 		handler.addObject(new GameBoard(30, 70, ID.GameBoard));
 		handler.addObject(new Player(80, 220, ID.Player, handler));
 		//handler.addObject(new BasicRL(80, 220, ID.BasicRL, handler));
