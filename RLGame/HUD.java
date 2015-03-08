@@ -53,7 +53,49 @@ public class HUD {
 	}
 	
 	/*public void radioButton(Graphics g){
-    
+		JLabel headerLabel = new JLabel("", JLabel.CENTER); 
+		final JLabel statusLabel = new JLabel("",JLabel.CENTER);
+		
+		headerLabel.setText("Choose a type of learner"); 
+
+		final JRadioButton RLButton = new JRadioButton("Basic RL", true);
+	    final JRadioButton DPButton = new JRadioButton("Mango");
+	    final JRadioButton MCButton = new JRadioButton("Peer");
+	
+	      RLButton.setMnemonic(KeyEvent.VK_C);
+	      DPButton.setMnemonic(KeyEvent.VK_M);
+	      MCButton.setMnemonic(KeyEvent.VK_P);
+	
+	      RLButton.addItemListener(new ItemListener() {
+	         public void itemStateChanged(ItemEvent e) {         
+	            statusLabel.setText("Apple RadioButton: " 
+	            + (e.getStateChange()==1?"checked":"unchecked"));
+	         }           
+	      });
+	
+	      DPButton.addItemListener(new ItemListener() {
+	         public void itemStateChanged(ItemEvent e) {             
+	            statusLabel.setText("Mango RadioButton: " 
+	            + (e.getStateChange()==1?"checked":"unchecked")); 
+	         }           
+	      });
+	
+	      MCButton.addItemListener(new ItemListener() {
+	         public void itemStateChanged(ItemEvent e) {             
+	            statusLabel.setText("Peer RadioButton: " 
+	            + (e.getStateChange()==1?"checked":"unchecked"));
+	         }           
+	      });
+	
+	      //Group the radio buttons.
+	      ButtonGroup group = new ButtonGroup();
+	      group.add(RLButton);
+	      group.add(DPButton);
+	      group.add(MCButton);
+	
+	      window.add(RLButton);
+	      controlPanel.add(DPButton);
+	      controlPanel.add(MCButton);       
 	
 	      mainFrame.setVisible(true);  
 	   }*/

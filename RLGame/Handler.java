@@ -26,8 +26,9 @@ public class Handler {
 		this.object.add(object);
 	}
 	
-	public void removerObject(GameObject object){
+	public void removeObject(GameObject object){
 		this.object.remove(object);
 	}
+	
 }
 
