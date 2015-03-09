@@ -11,8 +11,12 @@ public class DynamicProgramming extends GameObject {
 	public static int pastState = 0;
 	public static double pastValue = 0.0;
 	public static int pastDirection = 0;
+	public static double valueCalculation[] = new double[100];
+	public static double PolicyZeroValue;
+	public static double PolicyOneValue;
 	
 	Handler handler;
+	
 	
 	DirectionStruct[] direction = new DirectionStruct[11];
 	{
@@ -20,12 +24,9 @@ public class DynamicProgramming extends GameObject {
 	        direction[i] = new DirectionStruct();//this will call constructor.
 	    }
 	}
-    
-	
 	
 	public DynamicProgramming(int x, int y, ID id) {
 		super(x, y, id);
-		
 		
 	}
 
@@ -80,8 +81,6 @@ public class DynamicProgramming extends GameObject {
 			HUD.HEALTH = 0;
 		}
 		
-		
-		
 		//input pi, the policy to be evaluated
 		//initialize V(s) = 0, for all s included in S+
 		//Repeat
@@ -98,6 +97,10 @@ public class DynamicProgramming extends GameObject {
 		int num = 0;
 		double reward = 0;
 		int policy = 0; // reset to 1 if you want the other policy
+		if (HUD.trial > 20)
+		{
+			policy = 1;
+		}
 		
 		if (policy == 0)
 		{
@@ -162,7 +165,7 @@ public class DynamicProgramming extends GameObject {
 		
 		int chance = 0;
 		Random rand = new Random();
-	    chance = Math.abs(rand.nextInt(10));
+	    chance = Math.abs(rand.nextInt(4));
 	    //this creates a small chance that even though you set a policy that when you select going one direction, it will go in the wrong direction.
 	    //This is based on the videos, where there's a chance that even though you picked one direction, that you will go the wrong way
 		if (num == 0){
@@ -266,12 +269,28 @@ public class DynamicProgramming extends GameObject {
         else if(pastDirection == 3){ //down
         	direction[pastState].D = direction[pastState].R + .04 * (reward - direction[pastState].R);
         }
+        
         if(reward == 2 || reward == -2)
         {
         	direction[loc].U = reward;
         	pastState = 0;
         	pastDirection = 0;
         	pastValue = 0;
+        	if (policy == 0){
+        		double foo = direction[0].U+direction[1].U+direction[2].R+direction[3].L+direction[4].R+direction[5].L+direction[6].U+direction[7].R+direction[8].L+direction[9].U+direction[10].U;
+        		valueCalculation[HUD.trial-1]=foo;
+        		for (int i = 0; i < HUD.trial; i++){
+            		PolicyZeroValue = PolicyZeroValue + valueCalculation[i];
+            	}
+        		PolicyZeroValue = PolicyZeroValue/HUD.trial;
+        	}
+        	else if (policy == 1){
+        		valueCalculation[HUD.trial-1] = direction[0].R+direction[1].D+direction[2].D+direction[3].R+direction[4].L+direction[5].U+direction[6].U+direction[7].R+direction[8].L+direction[9].U+direction[10].U;
+        		for (int i = 20; i < HUD.trial; i++){
+            		PolicyOneValue = PolicyOneValue + valueCalculation[i];
+            	}
+        		PolicyOneValue = PolicyOneValue/(HUD.trial-20);
+        	}	
         }
         else
         {
@@ -386,6 +405,11 @@ public class DynamicProgramming extends GameObject {
 		g.drawString("R:"+ printValue, 540, 100);
 		printValue = df.format(direction[10].L);
 		g.drawString("L:"+ printValue, 540, 115);
+		
+		printValue = df.format(PolicyZeroValue);
+		g.drawString("Policy One: "+printValue, 200, 300);
+		printValue = df.format(PolicyOneValue);
+		g.drawString("Policy Two: "+printValue, 200, 350);
 	}
 
 	public Rectangle getBounds() {
