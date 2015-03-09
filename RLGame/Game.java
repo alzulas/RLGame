@@ -107,7 +107,7 @@ public class Game extends Canvas implements Runnable, ActionListener{
 				frames = 0;
 			}
 		}
-		System.out.println("!!!!!!!!!!!Exiting game loop!!!!!!!!!!!!!\n\n\n");
+		//System.out.println("!!!!!!!!!!!Exiting game loop!!!!!!!!!!!!!\n\n\n");
 		stop();
 		
 	}

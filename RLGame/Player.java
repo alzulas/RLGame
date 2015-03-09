@@ -108,6 +108,9 @@ public class Player extends GameObject {
 		g.setColor(Color.white);
 		g.fillRect(x, y, 32, 32);
 		
+		g.drawString("Each move is -.04, Win is +2 and Lose is -2", 20, 400);
+		g.drawString("Here you go where you direct, agents will have a 50% chance of going the wrong way", 20, 420);
+		
 	}
 	
 

@@ -49,7 +49,7 @@ public class Window extends Canvas{
 
 		//headerLabel.setText("Choose a type of learner"); 
 
-		JRadioButton playerButton = new JRadioButton("Player", true);
+		JRadioButton playerButton = new JRadioButton("Human Player", true);
 		JRadioButton rlButton = new JRadioButton("Basic RL");
 		JRadioButton dpButton = new JRadioButton("Dynamic Programming");
 		JRadioButton mcButton = new JRadioButton("Monte Carlo");
