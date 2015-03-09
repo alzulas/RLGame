@@ -407,9 +407,12 @@ public class DynamicProgramming extends GameObject {
 		g.drawString("L:"+ printValue, 540, 115);
 		
 		printValue = df.format(PolicyZeroValue);
-		g.drawString("Policy One: "+printValue, 200, 300);
+		g.drawString("Policy One around the top: "+printValue, 100, 300);
 		printValue = df.format(PolicyOneValue);
-		g.drawString("Policy Two: "+printValue, 200, 350);
+		g.drawString("Policy Two around the bottom: "+printValue, 100, 350);
+		
+		g.drawString("Dynamic Programming upstates action states from indivdiaul reward while following given policies", 20, 400);
+		g.drawString("Runs policy one for 20 trials, then poicy two for infinite trials", 20, 420);
 	}
 
 	public Rectangle getBounds() {

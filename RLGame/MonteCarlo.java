@@ -14,6 +14,9 @@ public class MonteCarlo extends GameObject{
 	public static double valueCalculation[] = new double[100];
 	public static double PolicyZeroValue;
 	public static double PolicyOneValue;
+	public static int everyState[] = new int [100];
+	public static int everyDirection[] = new int [100];
+	public static int move = 0;
 	
 	Handler handler;
 	
@@ -70,7 +73,6 @@ public class MonteCarlo extends GameObject{
 	
 	public void tick() {
 		
-		
 		x = Game.clamp(x, 80, 500);
 		y = Game.clamp(y, 86, 220);
 		
@@ -98,7 +100,7 @@ public class MonteCarlo extends GameObject{
 		int num = 0;
 		double reward = 0;
 		int policy = 0; // reset to 1 if you want the other policy
-		if (HUD.trial > 20)
+		if (HUD.trial > 10)
 		{
 			policy = 1;
 		}
@@ -217,7 +219,9 @@ public class MonteCarlo extends GameObject{
 				num = 3;
 			}
 		}			
-	
+		everyState[move] = loc;
+		everyDirection[move] = num;
+		
         //Make a move, get a reward.
         if (num == 0){
         	if (loc == 0 || loc == 1 || loc == 5 || loc == 6 || loc == 8)
@@ -271,6 +275,8 @@ public class MonteCarlo extends GameObject{
         	direction[pastState].D = direction[pastState].R + .04 * (reward - direction[pastState].R);
         }
         
+        move++;
+        
         if(reward == 2 || reward == -2)
         {
         	direction[loc].U = reward;
@@ -280,18 +286,56 @@ public class MonteCarlo extends GameObject{
         	if (policy == 0){
         		double foo = direction[0].U+direction[1].U+direction[2].R+direction[3].L+direction[4].R+direction[5].L+direction[6].U+direction[7].R+direction[8].L+direction[9].U+direction[10].U;
         		valueCalculation[HUD.trial-1]=foo;
+        		
         		for (int i = 0; i < HUD.trial; i++){
             		PolicyZeroValue = PolicyZeroValue + valueCalculation[i];
             	}
         		PolicyZeroValue = PolicyZeroValue/HUD.trial;
+        		for (int i = 0; i < move; i++){
+        			if(everyDirection[i] == 0){
+        				direction[everyState[i]].U = PolicyZeroValue;
+        			}
+        			else if(everyDirection[i] == 1){
+        				direction[everyState[i]].R = PolicyZeroValue;
+        			}		
+        			else if(everyDirection[i] == 2){
+        				direction[everyState[i]].L = PolicyZeroValue;
+        			}
+        			else if(everyDirection[i] == 3){
+        				direction[everyState[i]].D = PolicyZeroValue;
+        			}	
+        		}
         	}
         	else if (policy == 1){
-        		valueCalculation[HUD.trial-1] = direction[0].R+direction[1].D+direction[2].D+direction[3].R+direction[4].L+direction[5].U+direction[6].U+direction[7].R+direction[8].L+direction[9].U+direction[10].U;
-        		for (int i = 20; i < HUD.trial; i++){
+        		double foo = direction[0].R+direction[1].D+direction[2].D+direction[3].R+direction[4].L+direction[5].U+direction[6].U+direction[7].R+direction[8].L+direction[9].U+direction[10].U;
+        		valueCalculation[HUD.trial-1]=foo;
+        		
+        		for (int i = 10; i < HUD.trial; i++){
             		PolicyOneValue = PolicyOneValue + valueCalculation[i];
             	}
         		PolicyOneValue = PolicyOneValue/(HUD.trial-20);
-        	}	
+        		for (int i = 0; i < move; i++){
+        			if(everyDirection[i] == 0){
+        				direction[everyState[i]].U = PolicyOneValue;
+        			}
+        			else if(everyDirection[i] == 1){
+        				direction[everyState[i]].R = PolicyOneValue;
+        			}		
+        			else if(everyDirection[i] == 2){
+        				direction[everyState[i]].L = PolicyOneValue;
+        			}
+        			else if(everyDirection[i] == 3){
+        				direction[everyState[i]].D = PolicyOneValue;
+        			}	
+        		}
+        	}
+        	move = 0;
+        	for (int i = 0; i < 100; i++){
+        		everyState[i] = 0;
+        	}
+        	for (int i = 0; i < 100; i++){
+        		everyDirection[i] = 0;
+        	}
         }
         else
         {
@@ -299,6 +343,7 @@ public class MonteCarlo extends GameObject{
             pastDirection = num;
             pastValue = reward;
         }
+        
         
         
 	}
@@ -411,6 +456,9 @@ public class MonteCarlo extends GameObject{
 		g.drawString("Policy One: "+printValue, 200, 300);
 		printValue = df.format(PolicyOneValue);
 		g.drawString("Policy Two: "+printValue, 200, 350);
+		
+		g.drawString("Monte Carlo upstates action states from end reward while following given policies", 20, 400);
+		g.drawString("Runs policy one for 10 trials, then poicy two for infinite trials", 20, 420);
 	}
 
 	public Rectangle getBounds() {

@@ -323,6 +323,9 @@ public int location(){
 		g.drawString("R:"+ printValue, 540, 100);
 		printValue = df.format(direction[10].L);
 		g.drawString("L:"+ printValue, 540, 115);
+		
+		g.drawString("Basic RL is simply V(s) <- V(s)+alpha[V(s')-V(s)]", 100, 300);
+		g.drawString("Explores randomly for 20 trials, then follows learned policy", 100, 320);
 	}
 
 	public Rectangle getBounds() {
