@@ -21,7 +21,6 @@ public class Game extends Canvas implements Runnable, ActionListener{
 	private Handler handler;
 	private HUD hud;
 	
-	
 	public Game(){
 		new Window(WIDTH, HEIGHT, "Reinforcement Learning Game!", this);
 		hud = new HUD();
@@ -42,15 +41,19 @@ public class Game extends Canvas implements Runnable, ActionListener{
 	{
 		if (choice == 0){
 			playerHandler=new Player(80, 220, ID.Player, handler);
+			HUD.trial = 1;
 		}
 		if (choice == 1){
 			playerHandler=new BasicRL(80, 220, ID.BasicRL, handler);
+			HUD.trial = 1;
 		}
 		if (choice == 2){	
 			playerHandler=new DynamicProgramming(80, 220, ID.DynamicProgramming);
+			HUD.trial = 1;
 		}
 		if (choice == 3){
 			playerHandler=new MonteCarlo(80, 220, ID.MonteCarlo);
+			HUD.trial = 1;
 		}
 		handler.addObject(playerHandler);
 	}
